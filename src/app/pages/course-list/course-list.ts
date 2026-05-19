@@ -18,17 +18,23 @@ export class CourseList {
 
   searchTerm = signal('');
   subjectFilter = signal('all');
+  sortKey = signal<'courseCode' | 'courseName' | 'points' | 'subject'>('courseCode');
+  sortDirection = signal<'asc' | 'desc'>('asc');
 
   subjects = computed(() => {
     const list = this.courses();
     return [...new Set(list.map(c => c.subject))];
   });
 
-  filteredCourses = computed(() => {
+  sortedCourses = computed(() => {
+
     const term = this.searchTerm().toLowerCase();
     const subject = this.subjectFilter();
 
-    return this.courses().filter(course => {
+    const key = this.sortKey();
+    const direction = this.sortDirection();
+
+    let result = this.courses().filter(course => {
 
       const matchesSearch =
         course.courseName.toLowerCase().includes(term) ||
@@ -39,5 +45,20 @@ export class CourseList {
 
       return matchesSearch && matchesSubject;
     });
+
+    result = result.sort((a: any, b: any) => {
+
+      let valueA = a[key];
+      let valueB = b[key];
+
+      if (typeof valueA === 'string') valueA = valueA.toLowerCase();
+      if (typeof valueB === 'string') valueB = valueB.toLowerCase();
+
+      if (valueA < valueB) return direction === 'asc' ? -1 : 1;
+      if (valueA > valueB) return direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    return result;
   });
 }

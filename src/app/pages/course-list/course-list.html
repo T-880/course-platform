@@ -14,10 +14,20 @@
   }
 </select>
 
-<p>Antal träffar: {{ filteredCourses().length }}</p>
+<div class="sort-buttons">
+  <button (click)="sortKey.set('courseCode')">Kurskod</button>
+  <button (click)="sortKey.set('courseName')">Namn</button>
+  <button (click)="sortKey.set('points')">Poäng</button>
+  <button (click)="sortKey.set('subject')">Ämne</button>
+
+  <button (click)="sortDirection.set('asc')">↑</button>
+  <button (click)="sortDirection.set('desc')">↓</button>
+</div>
+
+<p>Antal träffar: {{ sortedCourses().length }}</p>
 
 <div class="course-grid">
-  @for (course of filteredCourses(); track course.courseCode) {
+  @for (course of sortedCourses(); track course.courseCode) {
     <div class="course-card">
       <h3>{{ course.courseName }}</h3>
       <p><strong>Kod:</strong> {{ course.courseCode }}</p>
