@@ -1,7 +1,23 @@
 <h1>Alla kurser</h1>
 
+<input
+  type="text"
+  placeholder="Sök kurskod eller kursnamn"
+  (input)="searchTerm.set($any($event.target).value)"
+/>
+
+<select (change)="subjectFilter.set($any($event.target).value)">
+  <option value="all">Alla ämnen</option>
+
+  @for (subject of subjects(); track subject) {
+    <option [value]="subject">{{ subject }}</option>
+  }
+</select>
+
+<p>Antal träffar: {{ filteredCourses().length }}</p>
+
 <div class="course-grid">
-  @for (course of courses(); track course.courseCode) {
+  @for (course of filteredCourses(); track course.courseCode) {
     <div class="course-card">
       <h3>{{ course.courseName }}</h3>
       <p><strong>Kod:</strong> {{ course.courseCode }}</p>
