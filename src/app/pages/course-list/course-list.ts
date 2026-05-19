@@ -1,6 +1,7 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CourseService } from '../../services/course.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { ScheduleService } from '../../services/schedule.service';
 
 @Component({
   selector: 'app-course-list',
@@ -11,7 +12,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class CourseList {
 
   private courseService = inject(CourseService);
-
+  private scheduleService = inject(ScheduleService);
   courses = toSignal(this.courseService.getCourses(), {
     initialValue: []
   });
@@ -61,4 +62,9 @@ export class CourseList {
 
     return result;
   });
+
+  addToSchedule(course: any) {
+    this.scheduleService.addCourse(course);
+  }
+
 }

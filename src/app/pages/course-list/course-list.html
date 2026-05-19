@@ -1,38 +1,39 @@
 <h1>Alla kurser</h1>
 
-<input
-  type="text"
-  placeholder="Sök kurskod eller kursnamn"
-  (input)="searchTerm.set($any($event.target).value)"
-/>
+<input  type="text" placeholder="Sök kurskod eller kursnamn" (input)="searchTerm.set($any($event.target).value)" />
 
 <select (change)="subjectFilter.set($any($event.target).value)">
-  <option value="all">Alla ämnen</option>
+    <option value="all">Alla ämnen</option>
 
-  @for (subject of subjects(); track subject) {
+    @for (subject of subjects(); track subject) {
     <option [value]="subject">{{ subject }}</option>
-  }
+    }
 </select>
 
 <div class="sort-buttons">
-  <button (click)="sortKey.set('courseCode')">Kurskod</button>
-  <button (click)="sortKey.set('courseName')">Namn</button>
-  <button (click)="sortKey.set('points')">Poäng</button>
-  <button (click)="sortKey.set('subject')">Ämne</button>
+    <button (click)="sortKey.set('courseCode')">Kurskod</button>
+    <button (click)="sortKey.set('courseName')">Namn</button>
+    <button (click)="sortKey.set('points')">Poäng</button>
+    <button (click)="sortKey.set('subject')">Ämne</button>
 
-  <button (click)="sortDirection.set('asc')">↑</button>
-  <button (click)="sortDirection.set('desc')">↓</button>
+    <button (click)="sortDirection.set('asc')">↑</button>
+    <button (click)="sortDirection.set('desc')">↓</button>
 </div>
 
 <p>Antal träffar: {{ sortedCourses().length }}</p>
 
 <div class="course-grid">
-  @for (course of sortedCourses(); track course.courseCode) {
+    @for (course of sortedCourses(); track course.courseCode) {
     <div class="course-card">
-      <h3>{{ course.courseName }}</h3>
-      <p><strong>Kod:</strong> {{ course.courseCode }}</p>
-      <p><strong>Poäng:</strong> {{ course.points }} hp</p>
-      <p><strong>Ämne:</strong> {{ course.subject }}</p>
+        <h3>{{ course.courseName }}</h3>
+        <p><strong>Kod:</strong> {{ course.courseCode }}</p>
+        <p><strong>Poäng:</strong> {{ course.points }} hp</p>
+        <p><strong>Ämne:</strong> {{ course.subject }}</p>
+
+        <button (click)="addToSchedule(course)">
+            Lägg till i ramschema
+        </button>
+
     </div>
-  }
+    }
 </div>

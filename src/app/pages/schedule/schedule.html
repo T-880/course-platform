@@ -1,1 +1,21 @@
-<p>schedule works!</p>
+<h1>Mitt ramschema</h1>
+
+<p><strong>Total HP:</strong> {{ totalPoints() }}</p>
+
+@if (courses().length === 0) {
+  <p>Inga kurser i ramschemat ännu.</p>
+}
+
+<div class="schedule-list">
+  @for (course of courses(); track course.courseCode) {
+    <div class="schedule-card">
+      <h3>{{ course.courseName }}</h3>
+
+      <p>{{ course.courseCode }} – {{ course.points }} hp</p>
+
+      <button (click)="remove(course.courseCode)">
+        Ta bort
+      </button>
+    </div>
+  }
+</div>
