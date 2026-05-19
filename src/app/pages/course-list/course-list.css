@@ -22,3 +22,16 @@ input, select {
   margin: 0.5rem 1rem;
   padding: 0.5rem;
 }
+
+.syllabus-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  color: #0056b3;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.syllabus-link:hover {
+  text-decoration: underline;
+}

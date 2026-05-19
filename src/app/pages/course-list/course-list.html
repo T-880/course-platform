@@ -1,6 +1,6 @@
 <h1>Alla kurser</h1>
 
-<input  type="text" placeholder="Sök kurskod eller kursnamn" (input)="searchTerm.set($any($event.target).value)" />
+<input type="text" placeholder="Sök kurskod eller kursnamn" (input)="searchTerm.set($any($event.target).value)" />
 
 <select (change)="subjectFilter.set($any($event.target).value)">
     <option value="all">Alla ämnen</option>
@@ -29,6 +29,10 @@
         <p><strong>Kod:</strong> {{ course.courseCode }}</p>
         <p><strong>Poäng:</strong> {{ course.points }} hp</p>
         <p><strong>Ämne:</strong> {{ course.subject }}</p>
+
+        <a [href]="course.syllabus" target="_blank" class="syllabus-link">
+            Information och Kursplan
+        </a>
 
         <button (click)="addToSchedule(course)">
             Lägg till i ramschema
