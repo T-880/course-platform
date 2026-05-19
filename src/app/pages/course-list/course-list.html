@@ -1,0 +1,12 @@
+<h1>Alla kurser</h1>
+
+<div class="course-grid">
+  @for (course of courses(); track course.courseCode) {
+    <div class="course-card">
+      <h3>{{ course.courseName }}</h3>
+      <p><strong>Kod:</strong> {{ course.courseCode }}</p>
+      <p><strong>Poäng:</strong> {{ course.points }} hp</p>
+      <p><strong>Ämne:</strong> {{ course.subject }}</p>
+    </div>
+  }
+</div>
