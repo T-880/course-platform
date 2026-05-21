@@ -74,8 +74,11 @@
 <button
   class="add-btn"
   [class.added]="isAdded(course.courseCode)"
-  [disabled]="isAdded(course.courseCode)"
-  (click)="addToSchedule(course)"
+  (click)="
+    isAdded(course.courseCode)
+      ? removeFromSchedule(course.courseCode)
+      : addToSchedule(course)
+  "
 >
   {{ isAdded(course.courseCode)
     ? 'Tillagd'

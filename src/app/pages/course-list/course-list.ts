@@ -67,6 +67,10 @@ export class CourseList {
     this.scheduleService.addCourse(course);
   }
 
+  removeFromSchedule(courseCode: string) {
+  this.scheduleService.removeCourse(courseCode);
+}
+
 isAdded(courseCode: string): boolean {
   return this.scheduleService.schedule()
     .some(course => course.courseCode === courseCode);
