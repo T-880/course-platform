@@ -71,12 +71,16 @@
           Kursplan
         </a>
 
-        <button
-          class="add-btn"
-          (click)="addToSchedule(course)"
-        >
-          Lägg till
-        </button>
+<button
+  class="add-btn"
+  [class.added]="isAdded(course.courseCode)"
+  [disabled]="isAdded(course.courseCode)"
+  (click)="addToSchedule(course)"
+>
+  {{ isAdded(course.courseCode)
+    ? 'Tillagd'
+    : 'Lägg till' }}
+</button>
 
       </div>
 

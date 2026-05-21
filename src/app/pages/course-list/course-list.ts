@@ -67,4 +67,9 @@ export class CourseList {
     this.scheduleService.addCourse(course);
   }
 
+isAdded(courseCode: string): boolean {
+  return this.scheduleService.schedule()
+    .some(course => course.courseCode === courseCode);
+}
+
 }
