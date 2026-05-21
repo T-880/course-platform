@@ -1,43 +1,87 @@
-<h1>Alla kurser</h1>
+<h1>Kurser</h1>
 
-<input type="text" placeholder="Sök kurskod eller kursnamn" (input)="searchTerm.set($any($event.target).value)" />
+<div class="filter-section">
 
-<select (change)="subjectFilter.set($any($event.target).value)">
+  <input
+    type="text"
+    placeholder="Sök kurskod eller kursnamn"
+    (input)="searchTerm.set($any($event.target).value)"
+  />
+
+  <select (change)="subjectFilter.set($any($event.target).value)">
     <option value="all">Alla ämnen</option>
 
     @for (subject of subjects(); track subject) {
-    <option [value]="subject">{{ subject }}</option>
+      <option [value]="subject">
+        {{ subject }}
+      </option>
     }
-</select>
+  </select>
 
-<div class="sort-buttons">
-    <button (click)="sortKey.set('courseCode')">Kurskod</button>
-    <button (click)="sortKey.set('courseName')">Namn</button>
-    <button (click)="sortKey.set('points')">Poäng</button>
-    <button (click)="sortKey.set('subject')">Ämne</button>
+  <select
+    (change)="sortKey.set($any($event.target).value)"
+  >
+    <option value="courseCode">Sortera efter kurskod</option>
+    <option value="courseName">Sortera efter kursnamn</option>
+    <option value="points">Sortera efter poäng</option>
+    <option value="subject">Sortera efter ämne</option>
+  </select>
 
-    <button (click)="sortDirection.set('asc')">↑</button>
-    <button (click)="sortDirection.set('desc')">↓</button>
 </div>
 
-<p>Antal träffar: {{ sortedCourses().length }}</p>
+<div class="results-info">
+  <p>
+    Visar {{ sortedCourses().length }} kurser
+  </p>
+</div>
 
 <div class="course-grid">
-    @for (course of sortedCourses(); track course.courseCode) {
-    <div class="course-card">
-        <h3>{{ course.courseName }}</h3>
-        <p><strong>Kod:</strong> {{ course.courseCode }}</p>
-        <p><strong>Poäng:</strong> {{ course.points }} hp</p>
-        <p><strong>Ämne:</strong> {{ course.subject }}</p>
 
-        <a [href]="course.syllabus" target="_blank" class="syllabus-link">
-            Information och Kursplan
+  @for (course of sortedCourses(); track course.courseCode) {
+
+    <div class="course-card">
+
+      <div class="course-top">
+
+        <span class="course-code">
+          {{ course.courseCode }}
+        </span>
+
+        <span class="points">
+          {{ course.points }} hp
+        </span>
+
+      </div>
+
+      <h2>
+        {{ course.courseName }}
+      </h2>
+
+      <p class="subject">
+        {{ course.subject }}
+      </p>
+
+      <div class="course-actions">
+
+        <a
+          [href]="course.syllabus"
+          target="_blank"
+          class="syllabus-btn"
+        >
+          Kursplan
         </a>
 
-        <button (click)="addToSchedule(course)">
-            Lägg till i ramschema
+        <button
+          class="add-btn"
+          (click)="addToSchedule(course)"
+        >
+          Lägg till
         </button>
 
+      </div>
+
     </div>
-    }
+
+  }
+
 </div>

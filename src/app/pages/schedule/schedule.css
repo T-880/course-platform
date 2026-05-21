@@ -1,0 +1,186 @@
+.schedule-summary {
+
+  display: flex;
+
+  gap: 1rem;
+
+  margin-bottom: 2rem;
+
+  flex-wrap: wrap;
+}
+
+.summary-card {
+
+  background: white;
+
+  flex: 1;
+
+  min-width: 220px;
+
+  padding: 1.5rem;
+
+  border-radius: 14px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.summary-card h3 {
+
+  color: #666;
+
+  margin-bottom: 0.5rem;
+
+  font-size: 1rem;
+}
+
+.summary-card p {
+
+  font-size: 2rem;
+
+  font-weight: bold;
+
+  color: #4b2aad;
+}
+
+.empty-state {
+
+  background: white;
+
+  padding: 2rem;
+
+  border-radius: 12px;
+
+  text-align: center;
+
+  color: #666;
+
+  margin-bottom: 2rem;
+}
+
+.schedule-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(320px, 1fr));
+
+  gap: 1.5rem;
+}
+
+.schedule-card {
+
+  background: white;
+
+  border-radius: 14px;
+
+  padding: 1.5rem;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+  transition: 0.2s ease;
+}
+
+.schedule-card:hover {
+
+  transform: translateY(-3px);
+
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+.schedule-top {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-bottom: 1rem;
+}
+
+.course-code {
+
+  background: #ede9ff;
+
+  color: #4b2aad;
+
+  padding: 0.4rem 0.7rem;
+
+  border-radius: 8px;
+
+  font-weight: bold;
+}
+
+.points {
+
+  color: #666;
+
+  font-weight: bold;
+}
+
+.schedule-card h2 {
+
+  font-size: 1.2rem;
+
+  margin-bottom: 0.8rem;
+}
+
+.subject {
+
+  color: #666;
+
+  margin-bottom: 1.5rem;
+}
+
+.schedule-actions {
+
+  display: flex;
+
+  gap: 1rem;
+}
+
+.syllabus-btn,
+.remove-btn {
+
+  flex: 1;
+
+  text-align: center;
+
+  padding: 0.8rem 1rem;
+
+  border-radius: 8px;
+
+  font-weight: bold;
+
+  font-size: 0.95rem;
+}
+
+.syllabus-btn {
+
+  background: #f1f1f1;
+
+  color: #333;
+}
+
+.syllabus-btn:hover {
+  background: #ddd;
+}
+
+.remove-btn {
+
+  background: #d7263d;
+
+  color: white;
+}
+
+.remove-btn:hover {
+  background: #b71f32;
+}
+
+/* Responsivitet */
+
+@media (max-width: 700px) {
+
+  .schedule-actions {
+    flex-direction: column;
+  }
+
+}
