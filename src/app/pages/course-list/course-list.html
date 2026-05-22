@@ -2,117 +2,103 @@
 
 <div class="filter-section">
 
-  <input
-    type="text"
-    placeholder="Sök kurskod eller kursnamn"
-    (input)="searchTerm.set($any($event.target).value); currentPage.set(1)"
-  />
+    <input type="text" placeholder="Sök kurskod eller kursnamn"
+        (input)="searchTerm.set($any($event.target).value); currentPage.set(1)" />
 
-  <select (change)="subjectFilter.set($any($event.target).value); currentPage.set(1)">
-    <option value="all">Alla ämnen</option>
+    <select (change)="subjectFilter.set($any($event.target).value); currentPage.set(1)">
+        <option value="all">Alla ämnen</option>
 
-    @for (subject of subjects(); track subject) {
-      <option [value]="subject">
-        {{ subject }}
-      </option>
-    }
-  </select>
+        @for (subject of subjects(); track subject) {
+        <option [value]="subject">
+            {{ subject }}
+        </option>
+        }
+    </select>
 
-  <select
-    (change)="sortKey.set($any($event.target).value); currentPage.set(1)"
-  >
-    <option value="courseCode">Sortera efter kurskod</option>
-    <option value="courseName">Sortera efter kursnamn</option>
-    <option value="points">Sortera efter poäng</option>
-    <option value="subject">Sortera efter ämne</option>
-  </select>
+    <select (change)="sortKey.set($any($event.target).value); currentPage.set(1)">
+        <option value="courseCode">Sortera efter kurskod</option>
+        <option value="courseName">Sortera efter kursnamn</option>
+        <option value="points">Sortera efter poäng</option>
+        <option value="subject">Sortera efter ämne</option>
+    </select>
+
+    <select class="sort-order" (change)="sortDirection.set($any($event.target).value); currentPage.set(1)">
+        <option value="asc">Stigande ordning</option>
+        <option value="desc">Fallande ordning</option>
+    </select>
 
 </div>
 
 <div class="results-info">
-  <p>
-    Visar {{ sortedCourses().length }} kurser
-  </p>
+    <p>
+        Visar {{ sortedCourses().length }} kurser
+    </p>
 </div>
 
 <div class="course-grid">
 
-  @for (course of paginatedCourses(); track course.courseCode) {
+    @for (course of paginatedCourses(); track course.courseCode) {
 
     <div class="course-card">
 
-      <div class="course-top">
+        <div class="course-top">
 
-        <span class="course-code">
-          {{ course.courseCode }}
-        </span>
+            <span class="course-code">
+                {{ course.courseCode }}
+            </span>
 
-        <span class="points">
-          {{ course.points }} hp
-        </span>
+            <span class="points">
+                {{ course.points }} hp
+            </span>
 
-      </div>
+        </div>
 
-      <h2>
-        {{ course.courseName }}
-      </h2>
+        <h2>
+            {{ course.courseName }}
+        </h2>
 
-      <p class="subject">
-        {{ course.subject }}
-      </p>
+        <p class="subject">
+            {{ course.subject }}
+        </p>
 
-      <div class="course-actions">
+        <div class="course-actions">
 
-        <a
-          [href]="course.syllabus"
-          target="_blank"
-          class="syllabus-btn"
-        >
-          Kursplan
-        </a>
+            <a [href]="course.syllabus" target="_blank" class="syllabus-btn">
+                Kursplan
+            </a>
 
-<button
-  class="add-btn"
-  [class.added]="isAdded(course.courseCode)"
-  (click)="
-    isAdded(course.courseCode)
-      ? removeFromSchedule(course.courseCode)
-      : addToSchedule(course)
-  "
->
-  {{ isAdded(course.courseCode)
-    ? 'Tillagd'
-    : 'Lägg till' }}
-</button>
+            <button class="add-btn" [class.added]="isAdded(course.courseCode)" (click)="
+                isAdded(course.courseCode)
+                  ? removeFromSchedule(course.courseCode)
+                  : addToSchedule(course)
+              ">
+                {{ isAdded(course.courseCode)
+                ? 'Ta bort'
+                : 'Lägg till' }}
+            </button>
 
-      </div>
+        </div>
 
     </div>
 
-  }
+    }
 
 </div>
 
 <div class="pagination">
 
-  <button
-    (click)="previousPage()"
-    [disabled]="currentPage() === 1"
-  >
-    Föregående
-  </button>
+    <button (click)="previousPage()" [disabled]="currentPage() === 1">
+        ← Föregående sida
+    </button>
 
-  <span>
-    Sida {{ currentPage() }}
-    av
-    {{ totalPages() }}
-  </span>
+    <span>
+        Sida {{ currentPage() }}
+        av
+        {{ totalPages() }}
+    </span>
 
-  <button
-    (click)="nextPage()"
-    [disabled]="currentPage() === totalPages()"
-  >
-    Nästa
-  </button>
+    <button (click)="nextPage()" [disabled]="currentPage() === totalPages()">
+        Nästa sida →
+    </button>
 
 </div>
