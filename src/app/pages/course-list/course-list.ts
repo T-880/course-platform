@@ -2,6 +2,7 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { CourseService } from '../../services/course.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ScheduleService } from '../../services/schedule.service';
+import { Course } from '../../models/course';
 
 @Component({
   selector: 'app-course-list',
@@ -50,7 +51,7 @@ export class CourseList {
       return matchesSearch && matchesSubject;
     });
 
-    result = result.sort((a: any, b: any) => {
+    result = result.sort((a, b) => {
 
       let valueA = a[key];
       let valueB = b[key];
@@ -67,23 +68,23 @@ export class CourseList {
   });
 
   totalPages = computed(() => {
-  return Math.ceil(
-    this.sortedCourses().length / this.itemsPerPage
-  );
-});
+    return Math.ceil(
+      this.sortedCourses().length / this.itemsPerPage
+    );
+  });
 
-paginatedCourses = computed(() => {
+  paginatedCourses = computed(() => {
 
-  const start =
-    (this.currentPage() - 1) * this.itemsPerPage;
+    const start =
+      (this.currentPage() - 1) * this.itemsPerPage;
 
-  const end = start + this.itemsPerPage;
+    const end = start + this.itemsPerPage;
 
-  return this.sortedCourses().slice(start, end);
+    return this.sortedCourses().slice(start, end);
 
-});
+  });
 
-  addToSchedule(course: any) {
+  addToSchedule(course: Course) {
     this.scheduleService.addCourse(course);
   }
 
@@ -92,29 +93,29 @@ paginatedCourses = computed(() => {
   }
 
   isAdded(courseCode: string): boolean {
- 
+
     return this.scheduleService.schedule()
       .some(course => course.courseCode === courseCode);
   }
 
-nextPage() {
+  nextPage() {
 
-  if (this.currentPage() < this.totalPages()) {
+    if (this.currentPage() < this.totalPages()) {
 
-    this.currentPage.update(page => page + 1);
+      this.currentPage.update(page => page + 1);
 
-  }
-
-}
-
-previousPage() {
-
-  if (this.currentPage() > 1) {
-
-    this.currentPage.update(page => page - 1);
+    }
 
   }
 
-}
+  previousPage() {
+
+    if (this.currentPage() > 1) {
+
+      this.currentPage.update(page => page - 1);
+
+    }
+
+  }
 
 }

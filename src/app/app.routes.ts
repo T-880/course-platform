@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { Courses } from './pages/courses/courses';
 import { Schedule } from './pages/schedule/schedule';
 import { CourseList } from './pages/course-list/course-list';
 

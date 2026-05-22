@@ -10,8 +10,7 @@ export class ScheduleService {
 
   schedule = this._schedule.asReadonly();
 
-    addCourse(course: Course) {
-
+  addCourse(course: Course) {
     const exists = this._schedule().some(
       c => c.courseCode === course.courseCode
     );
@@ -26,18 +25,14 @@ export class ScheduleService {
       courses.filter(course => course.courseCode !== courseCode)
     );
   }
+
   totalPoints = computed(() => {
-    return this._schedule().reduce((sum, course) => {
-      return sum + course.points;
-    }, 0);
+    return this._schedule().reduce((sum, course) => sum + course.points, 0);
   });
 
-  totalCourses = computed(() => {
-    return this._schedule().length;
-  });
+  totalCourses = computed(() => this._schedule().length);
 
   constructor() {
-
     effect(() => {
       localStorage.setItem(
         'schedule',
@@ -47,9 +42,7 @@ export class ScheduleService {
   }
 
   private loadFromLocalStorage(): Course[] {
-
     const data = localStorage.getItem('schedule');
-
     return data ? JSON.parse(data) : [];
   }
 }

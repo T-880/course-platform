@@ -2,73 +2,66 @@
 
 <div class="schedule-summary">
 
-  <div class="summary-card">
-    <h3>Antal kurser</h3>
-    <p>{{ courses().length }}</p>
-  </div>
+    <div class="summary-card">
+        <h3>Antal kurser</h3>
+        <p>{{ courses().length }}</p>
+    </div>
 
-  <div class="summary-card">
-    <h3>Totala högskolepoäng</h3>
-    <p>{{ totalPoints() }} hp</p>
-  </div>
+    <div class="summary-card">
+        <h3>Totala högskolepoäng</h3>
+        <p>{{ totalPoints() }} hp</p>
+    </div>
 
 </div>
 
 @if (courses().length === 0) {
 
-  <div class="empty-state">
+<div class="empty-state">
     <p>Inga kurser tillagda ännu.</p>
-  </div>
+</div>
 
 }
 
 <div class="schedule-grid">
 
-  @for (course of courses(); track course.courseCode) {
+    @for (course of courses(); track course.courseCode) {
 
     <div class="schedule-card">
 
-      <div class="schedule-top">
+        <div class="schedule-top">
 
-        <span class="course-code">
-          {{ course.courseCode }}
-        </span>
+            <span class="course-code">
+                {{ course.courseCode }}
+            </span>
 
-        <span class="points">
-          {{ course.points }} hp
-        </span>
+            <span class="points">
+                {{ course.points }} hp
+            </span>
 
-      </div>
+        </div>
 
-      <h2>
-        {{ course.courseName }}
-      </h2>
+        <h2>
+            {{ course.courseName }}
+        </h2>
 
-      <p class="subject">
-        {{ course.subject }}
-      </p>
+        <p class="subject">
+            {{ course.subject }}
+        </p>
 
-      <div class="schedule-actions">
+        <div class="schedule-actions">
 
-        <a
-          [href]="course.syllabus"
-          target="_blank"
-          class="syllabus-btn"
-        >
-          Kursplan
-        </a>
+            <a [href]="course.syllabus" target="_blank" class="syllabus-btn">
+                Kursplan
+            </a>
 
-        <button
-          class="remove-btn"
-          (click)="remove(course.courseCode)"
-        >
-          Ta bort
-        </button>
+            <button class="remove-btn" (click)="remove(course.courseCode)">
+                Ta bort
+            </button>
 
-      </div>
+        </div>
 
     </div>
 
-  }
+    }
 
 </div>
