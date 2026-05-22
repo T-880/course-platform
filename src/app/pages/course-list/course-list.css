@@ -176,3 +176,40 @@
   }
 
 }
+
+.pagination {
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 1rem;
+
+  margin-top: 2rem;
+}
+
+.pagination button {
+
+  padding: 0.7rem 1.2rem;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #4b2aad;
+
+  color: white;
+
+  cursor: pointer;
+
+  font-weight: bold;
+}
+
+.pagination button:disabled {
+
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}

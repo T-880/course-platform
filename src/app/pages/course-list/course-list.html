@@ -5,10 +5,10 @@
   <input
     type="text"
     placeholder="Sök kurskod eller kursnamn"
-    (input)="searchTerm.set($any($event.target).value)"
+    (input)="searchTerm.set($any($event.target).value); currentPage.set(1)"
   />
 
-  <select (change)="subjectFilter.set($any($event.target).value)">
+  <select (change)="subjectFilter.set($any($event.target).value); currentPage.set(1)">
     <option value="all">Alla ämnen</option>
 
     @for (subject of subjects(); track subject) {
@@ -19,7 +19,7 @@
   </select>
 
   <select
-    (change)="sortKey.set($any($event.target).value)"
+    (change)="sortKey.set($any($event.target).value); currentPage.set(1)"
   >
     <option value="courseCode">Sortera efter kurskod</option>
     <option value="courseName">Sortera efter kursnamn</option>
@@ -37,7 +37,7 @@
 
 <div class="course-grid">
 
-  @for (course of sortedCourses(); track course.courseCode) {
+  @for (course of paginatedCourses(); track course.courseCode) {
 
     <div class="course-card">
 
@@ -90,5 +90,29 @@
     </div>
 
   }
+
+</div>
+
+<div class="pagination">
+
+  <button
+    (click)="previousPage()"
+    [disabled]="currentPage() === 1"
+  >
+    Föregående
+  </button>
+
+  <span>
+    Sida {{ currentPage() }}
+    av
+    {{ totalPages() }}
+  </span>
+
+  <button
+    (click)="nextPage()"
+    [disabled]="currentPage() === totalPages()"
+  >
+    Nästa
+  </button>
 
 </div>

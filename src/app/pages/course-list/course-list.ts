@@ -21,6 +21,9 @@ export class CourseList {
   subjectFilter = signal('all');
   sortKey = signal<'courseCode' | 'courseName' | 'points' | 'subject'>('courseCode');
   sortDirection = signal<'asc' | 'desc'>('asc');
+  currentPage = signal(1);
+
+  itemsPerPage = 12;
 
   subjects = computed(() => {
     const list = this.courses();
@@ -63,17 +66,55 @@ export class CourseList {
     return result;
   });
 
+  totalPages = computed(() => {
+  return Math.ceil(
+    this.sortedCourses().length / this.itemsPerPage
+  );
+});
+
+paginatedCourses = computed(() => {
+
+  const start =
+    (this.currentPage() - 1) * this.itemsPerPage;
+
+  const end = start + this.itemsPerPage;
+
+  return this.sortedCourses().slice(start, end);
+
+});
+
   addToSchedule(course: any) {
     this.scheduleService.addCourse(course);
   }
 
   removeFromSchedule(courseCode: string) {
-  this.scheduleService.removeCourse(courseCode);
+    this.scheduleService.removeCourse(courseCode);
+  }
+
+  isAdded(courseCode: string): boolean {
+ 
+    return this.scheduleService.schedule()
+      .some(course => course.courseCode === courseCode);
+  }
+
+nextPage() {
+
+  if (this.currentPage() < this.totalPages()) {
+
+    this.currentPage.update(page => page + 1);
+
+  }
+
 }
 
-isAdded(courseCode: string): boolean {
-  return this.scheduleService.schedule()
-    .some(course => course.courseCode === courseCode);
+previousPage() {
+
+  if (this.currentPage() > 1) {
+
+    this.currentPage.update(page => page - 1);
+
+  }
+
 }
 
 }
