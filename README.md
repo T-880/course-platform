@@ -58,17 +58,17 @@ Projektet är byggt med:
 
 Projektet är uppdelat i:
 
-- **Components**
+- ###Components
   - course-list
   - schedule
   - home
   - navbar
 
-- **Services**
+- ###Services
   - CourseService (hanterar kursdata)
   - ScheduleService (hanterar ramschema)
 
-- **Routing**
+- ###Routing
   - /courses – kurslista
   - /schedule – ramschema
   - / – startsida
